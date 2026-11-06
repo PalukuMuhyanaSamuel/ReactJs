@@ -1,11 +1,17 @@
-import "./mycomposant.css";
-// import Button from "../bouton/button";
-export default function MyComposant({ item, text, handleClick }) {
+import { useState } from "react";
+
+export default function MyComposant({ onStatusChange, ...props }) {
+  const [internalState, setInternalState] = useState("State du child");
+  const handleChange = () => {
+    const newState = "Nouvelle etat du childState";
+    onStatusChange(newState);
+    setInternalState(newState);
+  };
   return (
     <>
-      <h1>Hello {item}</h1>
-      <p>{text}</p>
-      <button onClick={handleClick}> cliquer ici</button>
+      <p>{props.propsParent}</p>
+      <p>Etat du composant enfant: {internalState}</p>
+      <button onClick={handleChange}>Changer l'etat</button>
     </>
   );
 }
